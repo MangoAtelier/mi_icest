@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roque</title>
+  <style>
+    body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    }
+    canvas {
+    display: flex;
+    width: 300px;
+    height: 310px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    justify-content: flex-end;
+    text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="animationCanvas" width="100%" height="100%"></canvas>
+
+  <script>
+    const canvas = document.getElementById('animationCanvas');
+    const ctx = canvas.getContext('2d');
+    const totalFrames = 80; // Número total de imágenes
+    const fps = 29; // Frames por segundo
+    const images = []; // Arreglo para almacenar las imágenes
+    let currentFrame = 0;
+
+    // Pre-carga de las imágenes
+    function preloadImages() {
+      for (let i = 1; i <= totalFrames; i++) {
+        const img = new Image();
+        img.src = `./secuencia/frame${i}.png`; // Cambia el nombre según tu formato
+        images.push(img);
+      }
+    }
+
+    // Animar la secuencia
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(images[currentFrame], 0, 0, canvas.width, canvas.height);
+      currentFrame = (currentFrame + 1) % totalFrames; // Cicla entre los frames
+    }
+
+    // Inicia la animación
+    function startAnimation() {
+      preloadImages();
+      setInterval(animate, 1000 / fps); // Ejecuta la animación a la velocidad deseada
+    }
+
+    // Iniciar al cargar la página
+    startAnimation();
+  </script>
+</body>
+</html>
