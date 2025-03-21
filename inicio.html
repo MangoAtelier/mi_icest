@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>AR.js NFT Example</title>
 </head>
 <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.6.0/dist/aframe-master.min.js"></script>
 <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
@@ -21,7 +21,6 @@
     justify-content: center;
     align-items: center;
   }
-
   .arjs-loader div {
     text-align: center;
     font-size: 1.25em;
@@ -29,33 +28,33 @@
   }
 </style>
 
-<body style="margin : 0px; overflow: hidden;">
-  <!-- minimal loader shown until image descriptors are loaded -->
+<body style="margin: 0px; overflow: hidden;">
   <div class="arjs-loader">
     <div>Loading, please wait...</div>
   </div>
+
   <a-scene
     vr-mode-ui="enabled: false;"
     renderer="logarithmicDepthBuffer: true; precision: medium;"
     embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
   >
-    <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
     <a-nft
       type="nft"
-      url="https://github.com/MangoAtelier/mi_icest/blob/main/rewards.png"
+      url="https://raw.githack.com/MangoAtelier/mi_icest/main/rewards.png"
       smooth="true"
       smoothCount="10"
       smoothTolerance=".01"
       smoothThreshold="5"
     >
       <a-entity
-        gltf-model="https://github.com/MangoAtelier/mi_icest/blob/main/base01.glb"
+        gltf-model="https://raw.githack.com/MangoAtelier/mi_icest/main/base01.glb"
         scale="5 5 5"
-        position="150 300 -100"
+        position="0 0 0"
       >
       </a-entity>
     </a-nft>
+
     <a-entity camera></a-entity>
   </a-scene>
 </body>
