@@ -1,61 +1,1218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR.js NFT Example</title>
-</head>
-<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.6.0/dist/aframe-master.min.js"></script>
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio</title>
+  <style>
+    
+    @import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap");
+/* Estilos para desktop */
+@media (max-width: 1920px) {
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-  .arjs-loader {
-    height: 100%;
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Sans', sans-serif;
+      transition: background .4s ease-in;
+      /*background-color: #2d2d59;*/
+      background: radial-gradient(#100f3d, #021949);
+  background-size:4px 4px;
+    }
+
+    h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 35px;
+  font-weight: 900;
+  color: blue;
+}
+
+    input[type=radio] {
+      display: none;
+    }
+
+    h4 {
+      text-transform: uppercase;
+      background: #fff;
+      background: linear-gradient(to right, #00a6fb 0%, #00fddc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .main_expertices {
+      display: flex;
     width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
+    height: 100%;
+    overflow: hidden;
     align-items: center;
-  }
-  .arjs-loader div {
-    text-align: center;
-    font-size: 1.25em;
-    color: white;
-  }
-</style>
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    background: radial-gradient(circle, rgb(37, 139, 247) 0%, rgb(9, 85, 166) 13%, rgb(10, 0, 117) 45%, rgb(0, 2, 31) 68%);
+   /*background-image: url(./images/fondo.svg);*/
+  background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: cover;
+    } 
 
-<body style="margin: 0px; overflow: hidden;">
-  <div class="arjs-loader">
-    <div>Loading, please wait...</div>
+    .header_expertices {
+    display: flex;
+    width: 100%;
+    height: 102px;
+    background-color: #fff;
+    padding: 2px 3px;
+    align-items: center;
+    top: 0;
+    justify-content: center;
+    position: fixed;
+    align-content: center;
+    } 
+    .banner_movil {
+      display: none;
+    }
+
+    .img_logotipo {
+      display: block;
+      width: 200px;
+    }
+
+    .card {
+      display: flex;
+      position: absolute;
+      width: 60%;
+      height: 100%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      transition: transform .4s ease, opacity .4s ease;
+      cursor: pointer;
+      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      max-height: 490px;
+      height: 100%;
+      transform-style: preserve-3d;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cards {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+    }
+
+    img {
+      width: 70%;
+      height: auto;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .title {
+      font-size: 34px;
+      color: #fff;
+      font-weight: bold;
+      transition: transform 0.4s ease-in-out;
+      opacity: 0;
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 25px;
+      font-size: 12px;
+      color: #fff;
+      background: transparent;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-decoration: none;
+      position: absolute;
+      bottom: 20px; /* Botón debajo del título */
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+    }
+    
+
+    .btn:hover {
+      background: #00fddc;
+    }
+
+    /* Transformaciones para la animación */
+    #item-1:checked ~ .cards #song-3, 
+    #item-2:checked ~ .cards #song-1, 
+    #item-3:checked ~ .cards #song-2 {
+      transform: translatex(-40%) scale(.7);
+      opacity: .4;
+      z-index: 0;
+    }
+
+    #item-1:checked ~ .cards #song-2, 
+    #item-2:checked ~ .cards #song-3, 
+    #item-3:checked ~ .cards #song-1 {
+      transform: translatex(40%) scale(.7);
+      opacity: .4;
+      z-index: 0;
+    }
+
+    #item-1:checked ~ .cards #song-1, 
+    #item-2:checked ~ .cards #song-2, 
+    #item-3:checked ~ .cards #song-3 {
+      transform: translatex(0) scale(1.1); 
+      opacity: 1;
+      z-index: 1;
+    }
+
+    /* Mostrar título y botón al seleccionar */
+    #item-1:checked ~ .cards #song-1 .title,
+    #item-2:checked ~ .cards #song-2 .title,
+    #item-3:checked ~ .cards #song-3 .title,
+    #item-1:checked ~ .cards #song-1 .btn,
+    #item-2:checked ~ .cards #song-2 .btn,
+    #item-3:checked ~ .cards #song-3 .btn {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+     /* Estilo de las flechas */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  font-size: 24px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+  transform: translateY(-50%);
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+/* Estilo de las flechas en hover */
+.prev:hover, .next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+    .footer_expertices {
+      display: flex;
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    bottom: 0;
+    background: #00a6fb;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    }
+
+    .img_footer {
+      width: auto;
+      height: 90px;
+      bottom: 0px;
+    }
+    .hashtag_expertices {
+      display: block;
+      width: 100%;
+    }
+    .title_hashtag {
+    font-size: 28px;
+    color: #fff;
+    font-weight: bold;
+    line-height: 0.9;
+    transition: transform 0.4s ease-in-out;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+    }
+
+  #holder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/*
+  Menu
+*/
+/* Navigation Menu */
+nav#slide-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;  /* Initially hidden */
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background-color: #0c0b30;
+      transition: left 0.3s ease-in-out;
+      z-index: 10;
+    }
+
+    nav#slide-menu ul {
+      padding: 20px;
+      list-style: none;
+      margin: 0;
+      width: 100%;
+      opacity: 0.9;
+    }
+
+    nav#slide-menu ul li {
+      color: #dfe5eb;
+      padding: 15px 0;
+      cursor: pointer;
+      font-size: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    nav#slide-menu ul li:hover .links {
+      color: #59e9df;
+      background-color: #555556;
+    }
+
+    nav#slide-menu ul li:before {
+      /*content: '▶';  Adding icon before text */
+      font-size: 1.2em;
+      margin-right: 10px;
+      color: #59e9df;
+    }
+
+    /* Menu active state */
+    body.menu-active nav#slide-menu {
+      left: 0; /* Menu slides in when active */
+    }
+
+    /* Button to trigger menu */
+    .menu-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      color: #0000ff;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 20;
+    }
+    .links {
+        font-family: Poppins, sans-serif;
+        color:#dfe5eb;
+        cursor: pointer;
+        padding: 15px 0;
+      font-size: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+        text-decoration: none;
+        list-style: none!important;
+    }
+}
+
+/* Estilos para tablet */
+@media (max-width: 980px) {
+
+}
+
+/* Estilos para tablet */
+@media (max-width: 767px) {
+
+  * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Sans', sans-serif;
+      transition: background .4s ease-in;
+      /*background-color: #2d2d59;*/
+      background: radial-gradient(#100f3d, #021949);
+  background-size:4px 4px;
+    }
+
+    /* inicia info mapa */
+    model-viewer {
+            width: 90%;
+            height: 90%;
+        }
+        .wrapper {
+            display: flex;
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: rgb(209, 230, 249);
+            }
+
+        .cm_glb {
+            display: flex;
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            }
+
+            #model-viewer02 {
+            display: flex;
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            }
+
+           
+
+                  .view-button {
+                    background: #fff;
+                    border-radius: 4px;
+                    border: none;
+                    box-sizing: border-box;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+                    color: rgba(0, 0, 0, 0.8);
+                    display: block;
+                    font-family: Futura, Helvetica Neue, sans-serif;
+                    font-size: 12px;
+                    font-weight: 700;
+                    max-width: 128px;
+                    overflow-wrap: break-word;
+                    padding: 0.5em 1em;
+                    position: absolute;
+                    width: max-content;
+                    height: max-content;
+                    transform: translate3d(-50%, -50%, 0);
+                  }
+#model-viewer {
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+#hotspot {
+    width: 100% !important;
+    height: 100%;
+}
+h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 35px;
+  font-weight: 900;
+  color: blue;
+}
+    /* termina info mapa */
+
+    input[type=radio] {
+      display: none;
+    }
+
+    h4 {
+      text-transform: uppercase;
+      background: #fff;
+      background: linear-gradient(to right, #00a6fb 0%, #00fddc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .main_expertices {
+      display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    background: radial-gradient(circle, rgb(37, 139, 247) 0%, rgb(9, 85, 166) 13%, rgb(10, 0, 117) 45%, rgb(0, 2, 31) 68%);
+   /*background-image: url(./images/fondo.svg);*/
+  background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: cover;
+    } 
+
+    .header_expertices {
+      display: flex;
+    width: 100%;
+    height: 102px;
+    background-color: #fff;
+    padding: 2px 3px;
+    align-items: center;
+    top: 0;
+    justify-content: center;
+    position: fixed;
+    align-content: center;
+    } 
+
+    .card {
+      display: flex;
+      position: absolute;
+      width: 60%;
+      height: 80% !important;
+      left: 0;
+      right: 0;
+      margin: auto;
+      transition: transform .4s ease, opacity .4s ease;
+      cursor: pointer;
+      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cards {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+    }
+
+    img {
+      width: 95%;
+      height: auto;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .title {
+      font-size: 34px;
+      color: #fff;
+      font-weight: bold;
+      transition: transform 0.4s ease-in-out;
+      opacity: 0;
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 25px;
+      font-size: 12px;
+      color: #fff;
+      background: transparent;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-decoration: none;
+      position: absolute;
+      bottom: 20px; /* Botón debajo del título */
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+    }
+    
+
+    .btn:hover {
+      background: #00fddc;
+    }
+
+    /* Transformaciones para la animación */
+    #item-1:checked ~ .cards #song-3, 
+    #item-2:checked ~ .cards #song-1, 
+    #item-3:checked ~ .cards #song-2 {
+      transform: translatex(-40%) scale(.7);
+      opacity: .4;
+      z-index: 0;
+    }
+
+    #item-1:checked ~ .cards #song-2, 
+    #item-2:checked ~ .cards #song-3, 
+    #item-3:checked ~ .cards #song-1 {
+      transform: translatex(40%) scale(.7);
+      opacity: .4;
+      z-index: 0;
+    }
+
+    #item-1:checked ~ .cards #song-1, 
+    #item-2:checked ~ .cards #song-2, 
+    #item-3:checked ~ .cards #song-3 {
+      transform: translatex(0) scale(1.1); 
+      opacity: 1;
+      z-index: 1;
+    }
+
+    /* Mostrar título y botón al seleccionar */
+    #item-1:checked ~ .cards #song-1 .title,
+    #item-2:checked ~ .cards #song-2 .title,
+    #item-3:checked ~ .cards #song-3 .title,
+    #item-1:checked ~ .cards #song-1 .btn,
+    #item-2:checked ~ .cards #song-2 .btn,
+    #item-3:checked ~ .cards #song-3 .btn {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Estilo de las flechas */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  font-size: 24px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+  transform: translateY(-50%);
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+/* Estilo de las flechas en hover */
+.prev:hover, .next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+    .footer_expertices {
+      display: flex;
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    bottom: 0;
+    background: #00a6fb;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    }
+
+    .img_footer {
+      width: auto;
+      height: 90px;
+      bottom: 0px;
+    }
+    .hashtag_expertices {
+      display: block;
+      width: 100%;
+    }
+    .title_hashtag {
+    font-size: 28px;
+    color: #fff;
+    font-weight: bold;
+    line-height: 0.9;
+    transition: transform 0.4s ease-in-out;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+    }
+
+  #holder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/*
+  Menu
+*/
+/* Navigation Menu */
+nav#slide-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;  /* Initially hidden */
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background-color: #0c0b30;
+      transition: left 0.3s ease-in-out;
+      z-index: 10;
+    }
+
+    nav#slide-menu ul {
+      padding: 20px;
+      list-style: none;
+      margin: 0;
+      width: 100%;
+      opacity: 0.9;
+    }
+
+    nav#slide-menu ul li {
+      color: #dfe5eb;
+      padding: 15px 0;
+      cursor: pointer;
+      font-size: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    nav#slide-menu ul li:hover .links {
+      color: #59e9df;
+      background-color: #555556;
+    }
+
+    nav#slide-menu ul li:before {
+      /*content: '▶';  Adding icon before text */
+      font-size: 1.2em;
+      margin-right: 10px;
+      color: #59e9df;
+    }
+
+    /* Menu active state */
+    body.menu-active nav#slide-menu {
+      left: 0; /* Menu slides in when active */
+    }
+
+    /* Button to trigger menu */
+    .menu-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      color: #0000ff;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 20;
+    }
+    .links {
+        font-family: Poppins, sans-serif;
+        color:#dfe5eb;
+        cursor: pointer;
+        padding: 15px 0;
+      font-size: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+        text-decoration: none;
+        list-style: none!important;
+    }
+    .img_logotipo {
+      display: none;
+      width: 200px;
+    }
+
+    .banner_movil {
+      display: block;
+      width: 410px;
+      max-width: 768px;
+      height: 102px;
+    }
+
+}
+  </style>
+</head>
+<body>
+
+<div class="main_expertices">
+
+  <div class="header_expertices">
+    <img id="logo" class="img_logotipo" src="./images/logo_expertices.png" alt="logotipo expertices">
+    <div class="banner_movil">
+      <video autoplay>
+        <source src="./images/banner.mp4" type="video/mp4">
+        Tu navegador no soporta la etiqueta de video.
+      </video>
+      
+    </div>
+      </div>
+
+  <div class="container">
+
+    <input type="radio" name="slider" id="item-1" checked>
+    <input type="radio" name="slider" id="item-2">
+    <input type="radio" name="slider" id="item-3">
+    
+    <div class="cards">
+      <label class="card" for="item-1" id="song-1">
+        <img src="./images/ub.gif" alt="mapa">
+        <div class="title">Mapa</div>
+        <a href="ubicacion.html" class="btn">Ver más</a>
+      </label>
+
+      <label class="card" for="item-2" id="song-2">
+        <img src="./images/regalo.gif" alt="potcas">
+        <div class="title">Descubre</div>
+        <a href="https://www.expertices.com/blog" class="btn">Explorar</a>
+      </label>
+
+      <label class="card" for="item-3" id="song-3">
+        <img src="./images/programa.gif" alt="programa">
+        <div class="title">Programa</div>
+        <a href="programa.html" class="btn">Ver más</a>
+      </label>
+
+      <span class="prev">&#10094;</span>
+  <span class="next">&#10095;</span>
+
+    </div>
+
+    </div>
+
+    <div class="footer_expertices">
+      <img id="deportes" class="img_footer" src="./images/mix.gif" alt="deportes">
+      <div class="hashtag_expertices">
+        <h1 class="title_hashtag">#Vuélvete<br>UnExperto</h1>
+      </div>
+    
+      <div id="holder"></div>
+
   </div>
 
-  <a-scene
-    vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true; precision: medium;"
-    embedded
-    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-  >
-    <a-nft
-      type="nft"
-      url="https://raw.githack.com/MangoAtelier/mi_icest/main/rewards.png"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance=".01"
-      smoothThreshold="5"
-    >
-      <a-entity
-        gltf-model="https://raw.githack.com/MangoAtelier/mi_icest/main/base01.glb"
-        scale="5 5 5"
-        position="0 0 0"
-      >
-      </a-entity>
-    </a-nft>
 
-    <a-entity camera></a-entity>
-  </a-scene>
+  </div>
+</div>
+
+
+<script>
+  (function () {
+
+var pi = Math.PI;
+var pi2 = 2 * Math.PI;
+
+this.Waves = function (holder, options) {
+  var Waves = this;
+
+  Waves.options = extend(options || {}, {
+    resize: false,
+    rotation: 45,
+    waves: 5,
+    width: 100,
+    hue: [11, 14],
+    amplitude: 0.5,
+    background: true,
+    preload: true,
+    speed: [0.004, 0.008],
+    debug: false,
+    fps: false,
+  });
+
+  Waves.waves = [];
+
+  Waves.holder = document.querySelector(holder);
+  Waves.canvas = document.createElement('canvas');
+  Waves.ctx = Waves.canvas.getContext('2d');
+  Waves.holder.appendChild(Waves.canvas);
+
+  Waves.hue = Waves.options.hue[0];
+  Waves.hueFw = true;
+ /* Waves.stats = new Stats();*/
+
+  Waves.resize();
+  Waves.init(Waves.options.preload);
+
+  if (Waves.options.resize)
+    window.addEventListener('resize', function () {
+      Waves.resize();
+    }, false);
+
+};
+
+Waves.prototype.init = function (preload) {
+  var Waves = this;
+  var options = Waves.options;
+
+  for (var i = 0; i < options.waves; i++)
+    Waves.waves[i] = new Wave(Waves);
+
+  if (preload) Waves.preload();
+};
+
+Waves.prototype.preload = function () {
+  var Waves = this;
+  var options = Waves.options;
+
+  for (var i = 0; i < options.waves; i++) {
+    Waves.updateColor();
+    for (var j = 0; j < options.width; j++) {
+      Waves.waves[i].update();
+    }
+  }
+};
+
+Waves.prototype.render = function () {
+  var Waves = this;
+  var ctx = Waves.ctx;
+  var options = Waves.options;
+
+  Waves.updateColor();
+  Waves.clear();
+
+  if (Waves.options.debug) {
+    ctx.beginPath();
+    ctx.strokeStyle = '#f00';
+    ctx.arc(Waves.centerX, Waves.centerY, Waves.radius, 0, pi2);
+    ctx.stroke();
+  }
+
+  if (Waves.options.background) {
+    Waves.background();
+  }
+
+  each(Waves.waves, function (wave, i) {
+    wave.update();
+    wave.draw();
+  });
+};
+
+Waves.prototype.animate = function () {
+  var Waves = this;
+
+  Waves.render();
+
+  /*if (Waves.options.fps) {
+    Waves.stats.log();
+    Waves.ctx.font = '12px Arial';
+    Waves.ctx.fillStyle = '#fff';
+    Waves.ctx.fillText(Waves.stats.fps() + ' FPS', 10, 22);
+  }*/
+
+  window.requestAnimationFrame(Waves.animate.bind(Waves));
+};
+
+Waves.prototype.clear = function () {
+  var Waves = this;
+  Waves.ctx.clearRect(0, 0, Waves.width, Waves.height);
+};
+
+Waves.prototype.background = function () {
+  var Waves = this;
+  var ctx = Waves.ctx;
+
+  var gradient = Waves.ctx.createLinearGradient(0, 0, 0, Waves.height);
+  gradient.addColorStop(0, '#000');
+  gradient.addColorStop(1, Waves.color);
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, Waves.width, Waves.height);
+};
+
+Waves.prototype.resize = function () {
+  var Waves = this;
+  var width = Waves.holder.offsetWidth;
+  var height = Waves.holder.offsetHeight;
+  Waves.scale = window.devicePixelRatio || 1;
+  Waves.width = width * Waves.scale;
+  Waves.height = height * Waves.scale;
+  Waves.canvas.width = Waves.width;
+  Waves.canvas.height = Waves.height;
+  Waves.canvas.style.width = width + 'px';
+  Waves.canvas.style.height = height + 'px';
+  Waves.radius = Math.sqrt(Math.pow(Waves.width, 2) + Math.pow(Waves.height, 2)) / 2;
+  Waves.centerX = Waves.width / 2;
+  Waves.centerY = Waves.height / 2;
+  //Waves.radius /= 2; // REMOVE FOR FULLSREEN
+};
+
+Waves.prototype.updateColor = function () {
+  var Waves = this;
+
+  Waves.hue += (Waves.hueFw) ? 0.01 : -0.01;
+
+  if (Waves.hue > Waves.options.hue[1] && Waves.hueFw) {
+    Waves.hue = Waves.options.hue[1];
+    Waves.Waves = false;
+  } else if (Waves.hue < Waves.options.hue[0] && !Waves.hueFw) {
+    Waves.hue = Waves.options.hue[0];
+    Waves.Waves = true;
+  }
+
+  var a = Math.floor(127 * Math.sin(0.3 * Waves.hue + 0) + 128);
+  var b = Math.floor(127 * Math.sin(0.3 * Waves.hue + 2) + 128);
+  var c = Math.floor(127 * Math.sin(0.3 * Waves.hue + 4) + 128);
+
+  Waves.color = 'rgba(' + a + ',' + b + ',' + c + ', 0.1)';
+};
+
+function Wave(Waves) {
+  var Wave = this;
+  var speed = Waves.options.speed;
+
+  Wave.Waves = Waves;
+  Wave.Lines = [];
+
+  Wave.angle = [
+    rnd(pi2),
+    rnd(pi2),
+    rnd(pi2),
+    rnd(pi2)
+  ];
+
+  Wave.speed = [
+    rnd(speed[0], speed[1]) * rnd_sign(),
+    rnd(speed[0], speed[1]) * rnd_sign(),
+    rnd(speed[0], speed[1]) * rnd_sign(),
+    rnd(speed[0], speed[1]) * rnd_sign(),
+  ];
+
+  return Wave;
+}
+
+Wave.prototype.update = function () {
+  var Wave = this;
+  var Lines = Wave.Lines;
+  var color = Wave.Waves.color;
+
+  Lines.push(new Line(Wave, color));
+
+  if (Lines.length > Wave.Waves.options.width) {
+    Lines.shift();
+  }
+};
+
+Wave.prototype.draw = function () {
+  var Wave = this;
+  var Waves = Wave.Waves;
+
+  var ctx = Waves.ctx;
+  var radius = Waves.radius;
+  var radius3 = radius / 3;
+  var x = Waves.centerX;
+  var y = Waves.centerY;
+  var rotation = dtr(Waves.options.rotation);
+  var amplitude = Waves.options.amplitude;
+  var debug = Waves.options.debug;
+
+  var Lines = Wave.Lines;
+
+  each(Lines, function (line, i) {
+    if (debug && i > 0) return;
+
+    var angle = line.angle;
+
+    var x1 = x - radius * Math.cos(angle[0] * amplitude + rotation);
+    var y1 = y - radius * Math.sin(angle[0] * amplitude + rotation);
+    var x2 = x + radius * Math.cos(angle[3] * amplitude + rotation);
+    var y2 = y + radius * Math.sin(angle[3] * amplitude + rotation);
+    var cpx1 = x - radius3 * Math.cos(angle[1] * amplitude * 2);
+    var cpy1 = y - radius3 * Math.sin(angle[1] * amplitude * 2);
+    var cpx2 = x + radius3 * Math.cos(angle[2] * amplitude * 2);
+    var cpy2 = y + radius3 * Math.sin(angle[2] * amplitude * 2);
+
+    ctx.strokeStyle = (debug) ? '#fff' : line.color;
+
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, x2, y2);
+    ctx.stroke();
+
+    if (debug) {
+      ctx.strokeStyle = '#fff';
+      ctx.globalAlpha = 0.3;
+
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(cpx1, cpy1);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x2, y2);
+      ctx.lineTo(cpx2, cpy2);
+      ctx.stroke();
+
+      ctx.globalAlpha = 1;
+    }
+  });
+};
+
+function Line(Wave, color) {
+  var Line = this;
+
+  var angle = Wave.angle;
+  var speed = Wave.speed;
+
+  Line.angle = [
+    Math.sin(angle[0] += speed[0]),
+    Math.sin(angle[1] += speed[1]),
+    Math.sin(angle[2] += speed[2]),
+    Math.sin(angle[3] += speed[3])
+  ];
+
+  Line.color = color;
+}
+
+function Stats() {
+  this.data = [];
+}
+
+Stats.prototype.time = function () {
+  return (performance || Date)
+    .now();
+};
+
+Stats.prototype.log = function () {
+  if (!this.last) {
+    this.last = this.time();
+    return 0;
+  }
+
+  this.new = this.time();
+  this.delta = this.new - this.last;
+  this.last = this.new;
+
+  this.data.push(this.delta);
+  if (this.data.length > 10)
+    this.data.shift();
+};
+
+Stats.prototype.fps = function () {
+  var fps = 0;
+  each(this.data, function (data, i) {
+    fps += data;
+  });
+
+  return Math.round(1000 / (fps / this.data.length));
+};
+
+function each(items, callback) {
+  for (var i = 0; i < items.length; i++) {
+    callback(items[i], i);
+  }
+}
+
+function extend(options, defaults) {
+  for (var key in options)
+    if (defaults.hasOwnProperty(key))
+      defaults[key] = options[key];
+  return defaults;
+}
+
+function dtr(deg) {
+  return deg * pi / 180;
+}
+
+function rtd(rad) {
+  return rad * 180 / pi;
+}
+
+function diagonal_angle(w, h) {
+  var a = Math.atan2(h, w) * 1.27325;
+  return a;
+}
+
+function rnd(a, b) {
+  if (arguments.length == 1)
+    return Math.random() * a;
+  return a + Math.random() * (b - a);
+}
+
+function rnd_sign() {
+  return (Math.random() > 0.5) ? 1 : -1;
+}
+
+})();
+
+var waves = new Waves('#holder', {
+fps: false,
+waves: 3,
+width: 200,
+});
+
+waves.animate();
+
+</script>
+
+<!-- Arrow nav para el slider/carrucel -->
+<script>
+  // Obtener los elementos de los radios (los controles del slider)
+  const radioButtons = document.querySelectorAll('input[name="slider"]');
+  const prevButton = document.querySelector('.prev');
+  const nextButton = document.querySelector('.next');
+
+  // Función para cambiar la diapositiva
+  function changeSlide(direction) {
+    // Obtener el índice del radio seleccionado actualmente
+    let currentIndex = Array.from(radioButtons).findIndex(radio => radio.checked);
+    
+    // Calcular el índice de la siguiente diapositiva en base a la dirección (previo o siguiente)
+    if (direction === 'prev') {
+      currentIndex = (currentIndex === 0) ? radioButtons.length - 1 : currentIndex - 1;
+    } else if (direction === 'next') {
+      currentIndex = (currentIndex === radioButtons.length - 1) ? 0 : currentIndex + 1;
+    }
+
+    // Marcar el radio correspondiente según la dirección
+    radioButtons[currentIndex].checked = true;
+  }
+
+  // Asignar las funciones de clic a las flechas
+  prevButton.addEventListener('click', () => changeSlide('prev'));
+  nextButton.addEventListener('click', () => changeSlide('next'));
+</script>
+ <!-- fin arrow nav-->
+
 </body>
 </html>
